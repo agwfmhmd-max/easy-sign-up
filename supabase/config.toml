@@ -1,0 +1,12 @@
+project_id = "horagcxoseoaowmwyqcx"
+
+[auth]
+# Désactiver la confirmation email pour permettre la connexion immédiate
+# après inscription, à la fois pour les utilisateurs et l'administrateur.
+enable_signup = true
+enable_confirmations = false
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = false
+enable_confirmations = false

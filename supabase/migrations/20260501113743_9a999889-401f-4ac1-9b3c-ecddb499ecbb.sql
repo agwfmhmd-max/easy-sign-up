@@ -1,0 +1,1 @@
+ALTER TABLE public.payments ADD COLUMN IF NOT EXISTS idea_type text;
