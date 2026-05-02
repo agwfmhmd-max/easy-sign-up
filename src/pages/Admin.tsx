@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, X, Eye, Shield, Trash2, Plus, Tag, Users, Lightbulb, CreditCard } from "lucide-react";
+import { Check, X, Eye, Shield, Trash2, Plus, Tag, Users, Lightbulb, CreditCard, Sparkles, Zap, RefreshCw, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 const PAYMENT_AMOUNT = 10000;
@@ -24,6 +24,16 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [promoting, setPromoting] = useState(false);
 
+  // Solde IA
+  const [aiStatus, setAiStatus] = useState<{
+    remainingCredits: number | null;
+    limitCredits: number | null;
+    remainingIdeas: number;
+    creditsPerGeneration: number;
+    outOfCredits: boolean;
+  } | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+
   // New code form
   const [newCode, setNewCode] = useState("");
   const [newPct, setNewPct] = useState<number>(10);
@@ -35,6 +45,7 @@ const Admin = () => {
     if (authLoading) return;
     if (!user) { navigate("/auth"); return; }
     void load();
+    void loadAiStatus();
   }, [user, authLoading, isAdmin]);
 
   const load = async () => {
@@ -54,6 +65,22 @@ const Admin = () => {
       setDiscountCodes(codes || []);
     }
     setLoading(false);
+  };
+
+  const loadAiStatus = async () => {
+    if (!isAdmin) return;
+    setAiLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("ai-credits-status");
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      setAiStatus(data);
+    } catch (e: any) {
+      // Ne pas spammer l'utilisateur, le widget affichera l'état d'erreur
+      console.error("ai-credits-status:", e);
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const promoteSelf = async () => {
