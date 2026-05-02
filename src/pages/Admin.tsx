@@ -208,6 +208,89 @@ const Admin = () => {
           <StatCard label="Refusés" value={stats.rejected} color="destructive" icon={<X className="w-4 h-4" />} />
         </div>
 
+        {/* Solde Intelligence Artificielle */}
+        <div className="card-elegant p-5 sm:p-6 mb-6 sm:mb-8 animate-slide-up border-l-4 border-primary">
+          <div className="flex items-start justify-between flex-wrap gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 rounded-xl bg-primary/10">
+                <Sparkles className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h2 className="font-bold text-lg sm:text-xl">Solde Intelligence Artificielle</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Nombre estimé d'idées de PFE pouvant encore être générées avant épuisement du crédit IA.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={loadAiStatus} disabled={aiLoading}>
+                <RefreshCw className={`w-3.5 h-3.5 mr-1 ${aiLoading ? "animate-spin" : ""}`} />
+                Actualiser
+              </Button>
+              <Button
+                size="sm"
+                className="btn-hero"
+                onClick={() => window.open("https://lovable.dev/projects", "_blank")}
+              >
+                <Zap className="w-3.5 h-3.5 mr-1" />
+                Recharger
+                <ExternalLink className="w-3 h-3 ml-1" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+            <div className="rounded-xl p-4" style={{ background: "var(--gradient-soft)" }}>
+              <p className="text-xs text-muted-foreground font-semibold mb-1">Idées restantes (estimation)</p>
+              <p className={`text-3xl font-extrabold ${
+                aiStatus?.outOfCredits || (aiStatus && aiStatus.remainingIdeas === 0)
+                  ? "text-destructive"
+                  : aiStatus && aiStatus.remainingIdeas < 50
+                  ? "text-warning"
+                  : "text-primary"
+              }`}>
+                {aiLoading && !aiStatus ? "..." : aiStatus ? aiStatus.remainingIdeas.toLocaleString() : "—"}
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-1">
+                ≈ {aiStatus ? aiStatus.creditsPerGeneration : 0.02} crédit/idée
+              </p>
+            </div>
+
+            <div className="rounded-xl p-4 bg-muted/30">
+              <p className="text-xs text-muted-foreground font-semibold mb-1">Crédits IA restants</p>
+              <p className="text-2xl font-extrabold">
+                {aiStatus?.remainingCredits != null ? `$${aiStatus.remainingCredits.toFixed(2)}` : "—"}
+              </p>
+              {aiStatus?.limitCredits != null && aiStatus.limitCredits > 0 && (
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  sur ${aiStatus.limitCredits.toFixed(2)} alloués
+                </p>
+              )}
+            </div>
+
+            <div className="rounded-xl p-4 bg-muted/30">
+              <p className="text-xs text-muted-foreground font-semibold mb-1">Statut</p>
+              {aiStatus?.outOfCredits ? (
+                <span className="inline-block text-sm font-bold px-3 py-1.5 rounded-full bg-destructive/10 text-destructive">
+                  Crédit épuisé
+                </span>
+              ) : aiStatus && aiStatus.remainingIdeas < 50 ? (
+                <span className="inline-block text-sm font-bold px-3 py-1.5 rounded-full bg-warning/10 text-warning">
+                  Faible — pensez à recharger
+                </span>
+              ) : aiStatus ? (
+                <span className="inline-block text-sm font-bold px-3 py-1.5 rounded-full bg-success/10 text-success">
+                  Opérationnel
+                </span>
+              ) : (
+                <span className="inline-block text-sm font-bold px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
+                  {aiLoading ? "Vérification..." : "Indisponible"}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
         <Tabs defaultValue="payments" className="animate-slide-up">
           <TabsList className="w-full grid grid-cols-2 sm:grid-cols-4 h-auto">
             <TabsTrigger value="payments" className="text-xs sm:text-sm py-2">Paiements</TabsTrigger>
