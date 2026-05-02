@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { Sparkles, CheckCircle2, Globe2, Smartphone } from "lucide-react";
+import { Sparkles, CheckCircle2, Lightbulb, Smartphone } from "lucide-react";
 import { toast } from "sonner";
 
 const STEPS = [
@@ -16,7 +16,7 @@ const STEPS = [
   "Finalisation",
 ];
 
-type IdeaType = "afrique_probleme" | "mauritanie_application" | null;
+type IdeaType = "mauritanie_probleme" | "mauritanie_application" | null;
 
 const Generate = () => {
   const { paymentId } = useParams();
@@ -82,17 +82,17 @@ const Generate = () => {
 
               <div className="grid md:grid-cols-2 gap-4 mb-8">
                 <button
-                  onClick={() => setIdeaType("afrique_probleme")}
+                  onClick={() => setIdeaType("mauritanie_probleme")}
                   className={`text-left p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
-                    ideaType === "afrique_probleme"
+                    ideaType === "mauritanie_probleme"
                       ? "border-primary bg-primary/5 shadow-md"
                       : "border-border bg-card hover:border-primary/40"
                   }`}
                 >
-                  <Globe2 className="w-8 h-8 text-primary mb-3" />
-                  <h3 className="font-bold text-lg mb-2">Problématique africaine</h3>
+                  <Lightbulb className="w-8 h-8 text-primary mb-3" />
+                  <h3 className="font-bold text-lg mb-2">Problématique mauritanienne</h3>
                   <p className="text-sm text-muted-foreground">
-                    Une idée liée à votre spécialité qui traite une <strong>problématique économique, sociale ou de gestion</strong> en Afrique.
+                    Une idée liée à votre spécialité qui traite une <strong>problématique économique, sociale ou managériale</strong> concrète de la Mauritanie.
                   </p>
                 </button>
 
@@ -133,8 +133,8 @@ const Generate = () => {
               <p className="text-muted-foreground mb-6">
                 Orientation choisie :{" "}
                 <strong className="text-primary">
-                  {ideaType === "afrique_probleme"
-                    ? "Problématique africaine"
+                  {ideaType === "mauritanie_probleme"
+                    ? "Problématique mauritanienne"
                     : "Application pour la Mauritanie"}
                 </strong>
               </p>
