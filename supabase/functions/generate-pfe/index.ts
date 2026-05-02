@@ -81,11 +81,11 @@ Deno.serve(async (req) => {
     const userDescription = payment.description || "Aucune description fournie.";
     const ideaType = ideaTypeInput || payment.idea_type || "mauritanie_application";
 
-    const orientationPrompt = ideaType === "afrique_probleme"
-      ? `ORIENTATION OBLIGATOIRE : Le sujet doit traiter une PROBLÉMATIQUE RÉELLE (économique, sociale, managériale ou sectorielle) du continent AFRICAIN, parfaitement alignée avec la spécialité "${specialtyLabel}". Le projet doit analyser un problème africain concret et proposer des recommandations applicables. Ce N'EST PAS forcément une application logicielle.`
+    const orientationPrompt = (ideaType === "mauritanie_probleme" || ideaType === "afrique_probleme")
+      ? `ORIENTATION OBLIGATOIRE : Le sujet doit traiter une PROBLÉMATIQUE RÉELLE (économique, sociale, managériale ou sectorielle) de la MAURITANIE, parfaitement alignée avec la spécialité "${specialtyLabel}". Le projet doit analyser un problème mauritanien concret dont la société a besoin de résoudre, et proposer des recommandations applicables. Ce N'EST PAS forcément une application logicielle.`
       : `ORIENTATION OBLIGATOIRE : Le sujet doit être la conception d'une APPLICATION (logicielle, mobile, web ou plateforme numérique) qui résout un problème CONCRET de la société ou de l'économie MAURITANIENNE, en lien direct avec la spécialité "${specialtyLabel}". L'application doit répondre à un besoin réel observé en Mauritanie.`;
 
-    const systemPrompt = `Tu es un expert académique mauritanien spécialisé dans la conception de projets de fin d'études (PFE) pour les étudiants des instituts supérieurs de Mauritanie. Tu génères des sujets innovants, réalistes, utiles pour le développement économique et social de la Mauritanie et de l'Afrique. Tu écris exclusivement en français professionnel et académique.`;
+    const systemPrompt = `Tu es un expert académique mauritanien spécialisé dans la conception de projets de fin d'études (PFE) pour les étudiants des instituts supérieurs de Mauritanie. Tu génères des sujets innovants, réalistes, utiles pour le développement économique et social de la Mauritanie. Tu écris exclusivement en français professionnel et académique. Les titres que tu produis sont COURTS, PRÉCIS et PERCUTANTS (entre 6 et 12 mots maximum), jamais longs ni descriptifs.`;
 
     const userPrompt = `Génère un sujet de PFE COMPLET et UNIQUE pour un étudiant en spécialité "${specialtyLabel}".
 
@@ -98,6 +98,8 @@ ${existingTitles.length ? existingTitles.map((t, i) => `${i + 1}. ${t}`).join("\
 
 Le sujet doit :
 - Respecter STRICTEMENT l'orientation imposée ci-dessus
+- Avoir un TITRE COURT, PRÉCIS et CIBLÉ (6 à 12 mots MAXIMUM, pas de phrases longues, pas de sous-titres avec ":")
+- Être ancré exclusivement dans le contexte MAURITANIEN (ne mentionne pas l'Afrique en général)
 - Être innovant, réalisable par un étudiant en fin de cycle
 - Avoir un impact social ou économique réel
 - Inclure un diagramme visuel d'architecture/fonctionnement de la solution (acteurs, modules, flux)
@@ -116,7 +118,7 @@ Retourne le résultat via l'outil submit_pfe.`;
           parameters: {
             type: "object",
             properties: {
-              title: { type: "string", description: "Titre unique et précis du PFE (10-20 mots)" },
+              title: { type: "string", description: "Titre COURT, précis et percutant du PFE (6 à 12 mots MAXIMUM, sans deux-points ni sous-titre)" },
               idea: { type: "string", description: "Présentation de l'idée et du concept (200-300 mots)" },
               problematique: { type: "string", description: "Problématique détaillée (200-300 mots)" },
               objectifs: {
