@@ -17,7 +17,7 @@ const Index = () => {
         <section className="container mx-auto px-4 pt-16 pb-24 text-center relative">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-8 animate-fade-in">
             <Sparkles className="w-4 h-4" />
-            Plateforme intelligente — Mauritanie & Afrique
+            Plateforme intelligente — Mauritanie
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 animate-slide-up">
@@ -63,7 +63,7 @@ const Index = () => {
               { icon: FileText, title: "Questionnaire prêt", desc: "Un sondage adapté à votre sujet, copiable et utilisable directement pour votre mémoire." },
               { icon: Zap, title: "Génération rapide", desc: "Quelques minutes après validation du paiement, votre PFE est prêt." },
               { icon: ShieldCheck, title: "Validation sécurisée", desc: "Paiement vérifié manuellement par notre équipe pour garantir le service." },
-              { icon: Users, title: "Contexte local", desc: "Sujets pensés pour la Mauritanie et l'Afrique, avec un impact réel." },
+              { icon: Users, title: "Contexte local", desc: "Sujets pensés pour la Mauritanie, avec un impact réel." },
             ].map((f, i) => (
               <div key={i} className="card-elegant p-6 hover:shadow-lg transition-all hover:-translate-y-1">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "var(--gradient-primary)" }}>
