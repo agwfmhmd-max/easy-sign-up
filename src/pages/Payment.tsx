@@ -8,7 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SPECIALTIES, PAYMENT_METHODS, PAYMENT_NUMBER, PAYMENT_AMOUNT } from "@/lib/constants";
+import {
+  SPECIALTIES,
+  PAYMENT_METHODS_PRIMARY,
+  PAYMENT_METHODS_SECONDARY,
+  PAYMENT_NUMBER,
+  PAYMENT_NUMBER_SECONDARY,
+  PAYMENT_AMOUNT,
+  getPaymentNumberForMethod,
+} from "@/lib/constants";
 import { toast } from "sonner";
 import { Upload, CheckCircle2, Copy, Tag, Loader2 } from "lucide-react";
 
@@ -18,6 +26,7 @@ const Payment = () => {
   const [specialty, setSpecialty] = useState("");
   const [description, setDescription] = useState("");
   const [method, setMethod] = useState<string>("Bankily");
+  const activeNumber = getPaymentNumberForMethod(method);
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -246,14 +255,31 @@ const Payment = () => {
                     <span className="font-extrabold text-primary text-lg">{finalAmount.toLocaleString()} UM</span>
                   </div>
                 )}
-                <div className="flex justify-between items-center flex-wrap gap-2 pt-2">
-                  <span className="text-muted-foreground">Numéro Bankily / Sedad / Masrvi :</span>
-                  <button
-                    className="font-bold text-primary inline-flex items-center gap-1.5"
-                    onClick={() => { navigator.clipboard.writeText(PAYMENT_NUMBER); toast.success("Numéro copié"); }}
-                  >
-                    {PAYMENT_NUMBER} <Copy className="w-3.5 h-3.5" />
-                  </button>
+                <div className="pt-2 space-y-2 border-t border-border">
+                  <div className="flex justify-between items-center flex-wrap gap-2">
+                    <span className="text-muted-foreground text-xs">
+                      Bankily / Sedad / Masrvi / Click / Bimbank / Ghazna Abi / Rasidi / Amanaty :
+                    </span>
+                    <button
+                      className="font-bold text-primary inline-flex items-center gap-1.5"
+                      onClick={() => { navigator.clipboard.writeText(PAYMENT_NUMBER); toast.success("Numéro copié"); }}
+                    >
+                      {PAYMENT_NUMBER} <Copy className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <div className="flex justify-between items-center flex-wrap gap-2">
+                    <span className="text-muted-foreground text-xs">Moov Money / BCI Pay :</span>
+                    <button
+                      className="font-bold text-primary inline-flex items-center gap-1.5"
+                      onClick={() => { navigator.clipboard.writeText(PAYMENT_NUMBER_SECONDARY); toast.success("Numéro copié"); }}
+                    >
+                      {PAYMENT_NUMBER_SECONDARY} <Copy className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <div className="flex justify-between items-center pt-2 border-t border-border/60">
+                    <span className="text-muted-foreground text-sm">Numéro pour votre méthode :</span>
+                    <span className="font-extrabold text-primary">{activeNumber}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -263,7 +289,16 @@ const Payment = () => {
               <Select value={method} onValueChange={setMethod}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  {PAYMENT_METHODS.map((m) => (
+                  <div className="px-2 py-1 text-xs font-bold text-muted-foreground">
+                    Sur {PAYMENT_NUMBER}
+                  </div>
+                  {PAYMENT_METHODS_PRIMARY.map((m) => (
+                    <SelectItem key={m} value={m}>{m}</SelectItem>
+                  ))}
+                  <div className="px-2 py-1 mt-1 text-xs font-bold text-muted-foreground border-t">
+                    Sur {PAYMENT_NUMBER_SECONDARY}
+                  </div>
+                  {PAYMENT_METHODS_SECONDARY.map((m) => (
                     <SelectItem key={m} value={m}>{m}</SelectItem>
                   ))}
                 </SelectContent>
