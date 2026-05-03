@@ -16,9 +16,10 @@ export const PAYMENT_METHODS_PRIMARY = [
   "Masrvi",
   "Click",
   "Bimbank",
-  "Ghazna Abi",
-  "Rasidi",
+  "Gaza pay",
+  "Rassidy",
   "Amanaty",
+  "BAMIS",
 ] as const;
 
 // Méthodes payant sur le numéro secondaire
