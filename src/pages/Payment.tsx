@@ -258,7 +258,7 @@ const Payment = () => {
                 <div className="pt-2 space-y-2 border-t border-border">
                   <div className="flex justify-between items-center flex-wrap gap-2">
                     <span className="text-muted-foreground text-xs">
-                      Bankily / Sedad / Masrvi / Click / Bimbank / Ghazna Abi / Rasidi / Amanaty :
+                      Bankily / Sedad / Masrvi / Click / Bimbank / Gaza pay / Rassidy / Amanaty / BAMIS :
                     </span>
                     <button
                       className="font-bold text-primary inline-flex items-center gap-1.5"
