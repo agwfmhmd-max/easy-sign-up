@@ -56,10 +56,10 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container mx-auto px-4 py-10 max-w-5xl">
-        <div className="mb-8 animate-slide-up">
-          <h1 className="text-4xl font-extrabold mb-1">Tableau de bord</h1>
-          <p className="text-muted-foreground">Bienvenue, {profile?.full_name || user?.email}</p>
+      <main className="container mx-auto px-4 py-6 sm:py-10 max-w-5xl">
+        <div className="mb-6 sm:mb-8 animate-slide-up">
+          <h1 className="text-2xl sm:text-4xl font-extrabold mb-1">Tableau de bord</h1>
+          <p className="text-muted-foreground text-sm sm:text-base break-all">Bienvenue, {profile?.full_name || user?.email}</p>
         </div>
 
         {!profileComplete && (
@@ -77,7 +77,7 @@ const Dashboard = () => {
 
         {/* Approved → Generate */}
         {approvedWithoutProject && (
-          <div className="card-elegant p-6 mb-6 border-l-4 border-success animate-slide-up">
+          <div className="card-elegant p-4 sm:p-6 mb-6 border-l-4 border-success animate-slide-up">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -86,7 +86,7 @@ const Dashboard = () => {
                 </div>
                 <p className="text-sm text-muted-foreground">Spécialité : {approvedWithoutProject.specialty}</p>
               </div>
-              <Button className="btn-hero" onClick={() => navigate(`/generate/${approvedWithoutProject.id}`)}>
+              <Button className="btn-hero w-full sm:w-auto" onClick={() => navigate(`/generate/${approvedWithoutProject.id}`)}>
                 <Sparkles className="w-4 h-4 mr-1.5" /> Générer mon PFE
               </Button>
             </div>
@@ -108,11 +108,11 @@ const Dashboard = () => {
 
         {/* New PFE button */}
         {profileComplete && !pendingPayment && !approvedWithoutProject && (
-          <div className="card-elegant p-10 text-center mb-6 animate-slide-up">
-            <div className="text-6xl mb-3">🎓</div>
-            <h2 className="text-2xl font-bold mb-2">Démarrez un nouveau PFE</h2>
-            <p className="text-muted-foreground mb-5">Choisissez votre spécialité et soumettez votre paiement.</p>
-            <Button className="btn-hero py-6 px-8 rounded-xl" onClick={() => navigate("/payment")}>
+          <div className="card-elegant p-6 sm:p-10 text-center mb-6 animate-slide-up">
+            <div className="text-5xl sm:text-6xl mb-3">🎓</div>
+            <h2 className="text-xl sm:text-2xl font-bold mb-2">Démarrez un nouveau PFE</h2>
+            <p className="text-muted-foreground mb-5 text-sm sm:text-base">Choisissez votre spécialité et soumettez votre paiement.</p>
+            <Button className="btn-hero py-5 sm:py-6 px-6 sm:px-8 rounded-xl w-full sm:w-auto" onClick={() => navigate("/payment")}>
               <Plus className="w-4 h-4 mr-1.5" /> Nouvelle demande
             </Button>
           </div>

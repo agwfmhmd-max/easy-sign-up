@@ -66,47 +66,47 @@ const Generate = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container mx-auto px-4 py-12 max-w-3xl">
-        <div className="card-elegant p-8 md:p-10 animate-slide-up">
+      <main className="container mx-auto px-4 py-6 sm:py-12 max-w-3xl">
+        <div className="card-elegant p-5 sm:p-8 md:p-10 animate-slide-up">
           {!generating && !confirmed && (
             <>
-              <div className="text-center mb-8">
-                <div className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl" style={{ background: "var(--gradient-primary)" }}>
+              <div className="text-center mb-6 sm:mb-8">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center text-3xl sm:text-4xl" style={{ background: "var(--gradient-primary)" }}>
                   ✨
                 </div>
-                <h1 className="text-3xl font-extrabold mb-3">Paiement confirmé !</h1>
-                <p className="text-muted-foreground">
+                <h1 className="text-2xl sm:text-3xl font-extrabold mb-3">Paiement confirmé !</h1>
+                <p className="text-muted-foreground text-sm sm:text-base">
                   Avant de générer votre PFE, choisissez l'orientation de votre sujet.
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <button
                   onClick={() => setIdeaType("mauritanie_probleme")}
-                  className={`text-left p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
+                  className={`text-left p-4 sm:p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
                     ideaType === "mauritanie_probleme"
                       ? "border-primary bg-primary/5 shadow-md"
                       : "border-border bg-card hover:border-primary/40"
                   }`}
                 >
-                  <Lightbulb className="w-8 h-8 text-primary mb-3" />
-                  <h3 className="font-bold text-lg mb-2">Problématique mauritanienne</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <Lightbulb className="w-7 h-7 sm:w-8 sm:h-8 text-primary mb-2 sm:mb-3" />
+                  <h3 className="font-bold text-base sm:text-lg mb-2">Problématique mauritanienne</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Une idée liée à votre spécialité qui traite une <strong>problématique économique, sociale ou managériale</strong> concrète de la Mauritanie.
                   </p>
                 </button>
 
                 <button
                   onClick={() => setIdeaType("mauritanie_application")}
-                  className={`text-left p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
+                  className={`text-left p-4 sm:p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
                     ideaType === "mauritanie_application"
                       ? "border-primary bg-primary/5 shadow-md"
                       : "border-border bg-card hover:border-primary/40"
                   }`}
                 >
-                  <Smartphone className="w-8 h-8 text-primary mb-3" />
-                  <h3 className="font-bold text-lg mb-2">Application pour la Mauritanie</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <Smartphone className="w-7 h-7 sm:w-8 sm:h-8 text-primary mb-2 sm:mb-3" />
+                  <h3 className="font-bold text-base sm:text-lg mb-2">Application pour la Mauritanie</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Une idée d'<strong>application concrète</strong> répondant à un besoin réel de la société ou de l'économie mauritanienne.
                   </p>
                 </button>
@@ -114,7 +114,7 @@ const Generate = () => {
 
               <div className="text-center">
                 <Button
-                  className="btn-hero py-6 px-10 rounded-2xl text-base"
+                  className="btn-hero py-5 sm:py-6 px-8 sm:px-10 rounded-2xl text-base w-full sm:w-auto"
                   onClick={() => setConfirmed(true)}
                   disabled={!ideaType}
                 >
@@ -126,11 +126,11 @@ const Generate = () => {
 
           {!generating && confirmed && (
             <div className="text-center">
-              <div className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style={{ background: "var(--gradient-primary)" }}>
-                <Sparkles className="w-10 h-10 text-white" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center" style={{ background: "var(--gradient-primary)" }}>
+                <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Prêt à générer</h2>
-              <p className="text-muted-foreground mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold mb-2">Prêt à générer</h2>
+              <p className="text-muted-foreground mb-6 text-sm sm:text-base">
                 Orientation choisie :{" "}
                 <strong className="text-primary">
                   {ideaType === "mauritanie_probleme"
@@ -138,11 +138,11 @@ const Generate = () => {
                     : "Application pour la Mauritanie"}
                 </strong>
               </p>
-              <div className="flex gap-3 justify-center">
-                <Button variant="outline" onClick={() => setConfirmed(false)}>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button variant="outline" onClick={() => setConfirmed(false)} className="w-full sm:w-auto">
                   ← Modifier
                 </Button>
-                <Button className="btn-hero py-6 px-10 rounded-2xl" onClick={start}>
+                <Button className="btn-hero py-5 sm:py-6 px-8 sm:px-10 rounded-2xl w-full sm:w-auto" onClick={start}>
                   <Sparkles className="w-5 h-5 mr-2" /> Lancer la génération
                 </Button>
               </div>
