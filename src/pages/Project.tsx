@@ -101,25 +101,25 @@ const Project = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container mx-auto px-4 py-10 max-w-4xl">
-        <div className="flex items-start justify-between flex-wrap gap-4 mb-6 animate-slide-up">
+      <main className="container mx-auto px-4 py-6 sm:py-10 max-w-4xl">
+        <div className="flex items-start justify-between flex-wrap gap-3 sm:gap-4 mb-6 animate-slide-up">
           <div className="flex-1 min-w-0">
             <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">{project.specialty}</div>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-1">{project.title}</h1>
-            <p className="text-sm text-muted-foreground">Généré le {new Date(project.created_at).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-1 break-words">{project.title}</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground">Généré le {new Date(project.created_at).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</p>
           </div>
-          <Button className="btn-hero" onClick={downloadPdf}>
+          <Button className="btn-hero w-full sm:w-auto" onClick={downloadPdf}>
             <Download className="w-4 h-4 mr-1.5" /> Télécharger PDF
           </Button>
         </div>
 
         <Tabs defaultValue="overview" className="animate-slide-up">
-          <TabsList className="grid w-full grid-cols-5 mb-6">
-            <TabsTrigger value="overview">Vue</TabsTrigger>
-            <TabsTrigger value="details">Détails</TabsTrigger>
-            <TabsTrigger value="diagram">Schéma</TabsTrigger>
-            <TabsTrigger value="report">Rapport</TabsTrigger>
-            <TabsTrigger value="survey">Sondage</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 mb-6 h-auto gap-1">
+            <TabsTrigger value="overview" className="text-xs sm:text-sm py-2">Vue</TabsTrigger>
+            <TabsTrigger value="details" className="text-xs sm:text-sm py-2">Détails</TabsTrigger>
+            <TabsTrigger value="diagram" className="text-xs sm:text-sm py-2">Schéma</TabsTrigger>
+            <TabsTrigger value="report" className="text-xs sm:text-sm py-2">Rapport</TabsTrigger>
+            <TabsTrigger value="survey" className="text-xs sm:text-sm py-2">Sondage</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-5">
@@ -348,9 +348,9 @@ const DiagramSvg = ({ diagram }: { diagram: Diagram }) => {
 };
 
 const Card = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="card-elegant p-6">
-    <h3 className="text-lg font-bold mb-3">{title}</h3>
-    <div className="text-foreground/90 leading-relaxed">{children}</div>
+  <div className="card-elegant p-4 sm:p-6">
+    <h3 className="text-base sm:text-lg font-bold mb-3">{title}</h3>
+    <div className="text-foreground/90 leading-relaxed text-sm sm:text-base break-words">{children}</div>
   </div>
 );
 
