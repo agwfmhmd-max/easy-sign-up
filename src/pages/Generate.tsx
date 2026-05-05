@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { Sparkles, CheckCircle2, Lightbulb, Smartphone } from "lucide-react";
+import { Sparkles, CheckCircle2, Lightbulb, Smartphone, Building2 } from "lucide-react";
 import { toast } from "sonner";
 
 const STEPS = [
@@ -16,7 +16,7 @@ const STEPS = [
   "Finalisation",
 ];
 
-type IdeaType = "mauritanie_probleme" | "mauritanie_application" | null;
+type IdeaType = "mauritanie_probleme" | "mauritanie_application" | "mauritanie_entreprise" | null;
 
 const Generate = () => {
   const { paymentId } = useParams();
@@ -80,7 +80,7 @@ const Generate = () => {
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="grid sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <button
                   onClick={() => setIdeaType("mauritanie_probleme")}
                   className={`text-left p-4 sm:p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
@@ -110,6 +110,21 @@ const Generate = () => {
                     Une idée d'<strong>application concrète</strong> répondant à un besoin réel de la société ou de l'économie mauritanienne.
                   </p>
                 </button>
+
+                <button
+                  onClick={() => setIdeaType("mauritanie_entreprise")}
+                  className={`text-left p-4 sm:p-6 rounded-2xl border-2 transition-all hover:shadow-lg ${
+                    ideaType === "mauritanie_entreprise"
+                      ? "border-primary bg-primary/5 shadow-md"
+                      : "border-border bg-card hover:border-primary/40"
+                  }`}
+                >
+                  <Building2 className="w-7 h-7 sm:w-8 sm:h-8 text-primary mb-2 sm:mb-3" />
+                  <h3 className="font-bold text-base sm:text-lg mb-2">Création d'entreprise en Mauritanie</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    Un projet de <strong>création d'entreprise</strong> répondant à un besoin du marché mauritanien, avec étude technique, financière et commerciale détaillées.
+                  </p>
+                </button>
               </div>
 
               <div className="text-center">
@@ -135,6 +150,8 @@ const Generate = () => {
                 <strong className="text-primary">
                   {ideaType === "mauritanie_probleme"
                     ? "Problématique mauritanienne"
+                    : ideaType === "mauritanie_entreprise"
+                    ? "Création d'entreprise en Mauritanie"
                     : "Application pour la Mauritanie"}
                 </strong>
               </p>
