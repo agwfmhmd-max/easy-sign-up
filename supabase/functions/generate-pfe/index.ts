@@ -81,9 +81,25 @@ Deno.serve(async (req) => {
     const userDescription = payment.description || "Aucune description fournie.";
     const ideaType = ideaTypeInput || payment.idea_type || "mauritanie_application";
 
-    const orientationPrompt = (ideaType === "mauritanie_probleme" || ideaType === "afrique_probleme")
-      ? `ORIENTATION OBLIGATOIRE : Le sujet doit traiter une PROBLÉMATIQUE RÉELLE (économique, sociale, managériale ou sectorielle) de la MAURITANIE, parfaitement alignée avec la spécialité "${specialtyLabel}". Le projet doit analyser un problème mauritanien concret dont la société a besoin de résoudre, et proposer des recommandations applicables. Ce N'EST PAS forcément une application logicielle.`
-      : `ORIENTATION OBLIGATOIRE : Le sujet doit être la conception d'une APPLICATION (logicielle, mobile, web ou plateforme numérique) qui résout un problème CONCRET de la société ou de l'économie MAURITANIENNE, en lien direct avec la spécialité "${specialtyLabel}". L'application doit répondre à un besoin réel observé en Mauritanie.`;
+    let orientationPrompt = "";
+    if (ideaType === "mauritanie_probleme" || ideaType === "afrique_probleme") {
+      orientationPrompt = `ORIENTATION OBLIGATOIRE : Le sujet doit traiter une PROBLÉMATIQUE RÉELLE (économique, sociale, managériale ou sectorielle) de la MAURITANIE, parfaitement alignée avec la spécialité "${specialtyLabel}". Le projet doit analyser un problème mauritanien concret dont la société a besoin de résoudre, et proposer des recommandations applicables. Ce N'EST PAS forcément une application logicielle.`;
+    } else if (ideaType === "mauritanie_entreprise") {
+      orientationPrompt = `ORIENTATION OBLIGATOIRE : Le sujet doit être un PROJET DE CRÉATION D'ENTREPRISE en MAURITANIE qui répond à un BESOIN RÉEL et un MARCHÉ CONCRET du pays, parfaitement aligné avec la spécialité "${specialtyLabel}".
+
+Le PFE doit présenter de manière TRÈS DÉTAILLÉE :
+1. L'idée d'entreprise (produit/service, mission, valeur ajoutée, positionnement)
+2. Le besoin du marché mauritanien et la justification de sa nécessité (chiffres, contexte local, clientèle cible, concurrence)
+3. UNE ÉTUDE TECHNIQUE complète : processus de production/prestation, ressources matérielles & humaines nécessaires, localisation, équipements, fournisseurs, organisation opérationnelle, contraintes réglementaires mauritaniennes
+4. UNE ÉTUDE FINANCIÈRE complète : investissement initial estimé en MRU (Ouguiya), structure de coûts, plan de financement (apports, emprunts), prévisions de chiffre d'affaires sur 3-5 ans, compte de résultat prévisionnel, seuil de rentabilité, retour sur investissement (ROI), indicateurs (VAN, TRI si pertinent)
+5. UNE ÉTUDE COMMERCIALE & MARKETING : stratégie de commercialisation, mix marketing (4P) adapté au contexte mauritanien, canaux de distribution
+6. Analyse SWOT et risques
+7. Impact socio-économique sur la Mauritanie (emplois créés, contribution au PIB, etc.)
+
+Les chapitres et sections du document DOIVENT couvrir explicitement ces volets : Étude technique, Étude financière, Étude commerciale, Plan d'affaires, Analyse des risques.`;
+    } else {
+      orientationPrompt = `ORIENTATION OBLIGATOIRE : Le sujet doit être la conception d'une APPLICATION (logicielle, mobile, web ou plateforme numérique) qui résout un problème CONCRET de la société ou de l'économie MAURITANIENNE, en lien direct avec la spécialité "${specialtyLabel}". L'application doit répondre à un besoin réel observé en Mauritanie.`;
+    }
 
     const systemPrompt = `Tu es un expert académique mauritanien spécialisé dans la conception de projets de fin d'études (PFE) pour les étudiants des instituts supérieurs de Mauritanie. Tu génères des sujets innovants, réalistes, utiles pour le développement économique et social de la Mauritanie. Tu écris exclusivement en français professionnel et académique. Les titres que tu produis sont COURTS, PRÉCIS et PERCUTANTS (entre 6 et 12 mots maximum), jamais longs ni descriptifs.`;
 
